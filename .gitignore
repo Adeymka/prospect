@@ -1,0 +1,6 @@
+# Cursor
+.cursor/
+
+# Système
+.DS_Store
+Thumbs.db
