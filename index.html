@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prospects Finance — Afrique de l'Ouest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a222c;
+      --surface-hover: #232d3a;
+      --text: #e6edf3;
+      --text-muted: #8b9cad;
+      --accent: #0d9488;
+      --accent-hover: #0f766e;
+      --gold: #d4a853;
+      --border: #2d3a47;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.25rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 0.35rem;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+
+    .stat strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .stat span {
+      color: var(--text-muted);
+      margin-left: 0.25rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .search-wrap {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 0.7rem 1rem 0.7rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 0.95rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%238b9cad' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: 0.75rem center;
+    }
+
+    .search-wrap input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-wrap input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+    }
+
+    .filter-country {
+      padding: 0.7rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 0.95rem;
+      cursor: pointer;
+      min-width: 160px;
+    }
+
+    .filter-country:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .table-wrap {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem 1.25rem;
+      background: rgba(0,0,0,0.2);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    th button {
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    th button:hover {
+      color: var(--accent);
+    }
+
+    td {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    tr:hover td {
+      background: var(--surface-hover);
+    }
+
+    .name {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .job {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      max-width: 220px;
+    }
+
+    .country {
+      text-transform: capitalize;
+    }
+
+    .company {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .links a.linkedin {
+      background: rgba(10, 102, 194, 0.2);
+      color: #0a66c2;
+    }
+
+    .links a.linkedin:hover {
+      background: rgba(10, 102, 194, 0.35);
+    }
+
+    .links a.website {
+      background: rgba(13, 148, 136, 0.2);
+      color: var(--accent);
+    }
+
+    .links a.website:hover {
+      background: rgba(13, 148, 136, 0.35);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .count-bar {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 700px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Prospects Finance — Afrique de l'Ouest</h1>
+      <p class="subtitle">Annuaire des décideurs finance, risque et investissement</p>
+      <div class="stats" id="stats"></div>
+    </header>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <input type="search" id="search" placeholder="Rechercher par nom, entreprise ou poste…" aria-label="Recherche" />
+      </div>
+      <select class="filter-country" id="filterCountry" aria-label="Filtrer par pays">
+        <option value="">Tous les pays</option>
+      </select>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th><button type="button" data-sort="name">Nom</button></th>
+            <th><button type="button" data-sort="job">Poste</button></th>
+            <th><button type="button" data-sort="country">Pays</button></th>
+            <th><button type="button" data-sort="company">Entreprise</button></th>
+            <th>Liens</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="count-bar" id="countBar"></div>
+    </div>
+  </div>
+
+  <script>
+    const PROSPECTS = [
+      {"row_num":1,"name":"Ademola Awokoya","job":"Acting co group chief risk officer","linkedin":"linkedin.com/in/ACoAAALo274BRU-LI3BuAQaK_3M4uVwGughhn2I","country":"togo","company":"Ecobank transnational","website":"ecobank.com","company_linkedin":"linkedin.com/company/ecobank-group"},
+      {"row_num":2,"name":"Timothy Afful-koomson, Phd","job":"Chief climate finance officer","linkedin":"linkedin.com/in/ACoAAAdfeA8BGfziwWUaG1InCV2I_uIxWFnKFe0","country":"ghana","company":"African development bank group","website":"afdb.org","company_linkedin":"linkedin.com/company/african-development-bank"},
+      {"row_num":3,"name":"Samuel Acquah","job":"Chief risk officer","linkedin":"linkedin.com/in/ACoAAAKhhtcBoBUfpvX5bhJfpfwWiPxuyySBee0","country":"ghana","company":"First national bank gh","website":"firstnationalbank.com.gh","company_linkedin":"linkedin.com/company/first-national-bank-gh"},
+      {"row_num":4,"name":"Justin Kossi Ocloo","job":"Directeur financier, comptable et du budget","linkedin":"linkedin.com/in/ACoAABSg3nQBPaHN2AeFD2bWhj-bmrfTiF49K-8","country":"senegal","company":"Gim uemoa","website":"gim-uemoa.org","company_linkedin":"linkedin.com/company/gim-uemoa-officiel"},
+      {"row_num":5,"name":"Caroline Millet-randall","job":"Director, climate finance","linkedin":"linkedin.com/in/ACoAABL9ptMBnJ5LL3LuxcqK-kSrKg1mEfo8uAg","country":"senegal","company":"Catholic relief services","website":"crs.org","company_linkedin":"linkedin.com/company/catholic-relief-services"},
+      {"row_num":6,"name":"Joseph Haverstick","job":"Chief financial officer","linkedin":"linkedin.com/in/josephdhaverstick","country":"senegal","company":"Us department of veterans affairs","website":"va.gov","company_linkedin":"linkedin.com/company/department-of-veterans-affairs"},
+      {"row_num":7,"name":"Mare Lo","job":"Senior disaster risk management specialist / gfdrr world bank group","linkedin":"linkedin.com/in/ACoAABSXZvABstcGedzGU3SLw-GwlCjXAU4QrCk","country":"senegal","company":"The world bank","website":"worldbank.org","company_linkedin":"linkedin.com/company/the-world-bank"},
+      {"row_num":8,"name":"Patrice Backer","job":"Partner & chief investment officer","linkedin":"linkedin.com/in/ACoAAAEYcCMByZdE-NkXipHfxN-ub2cDpUo8eOk","country":"senegal","company":"Afig funds","website":"afigfunds.com","company_linkedin":"linkedin.com/company/afig-funds"},
+      {"row_num":9,"name":"Mamadou Samb","job":"Head of investment and projects management","linkedin":"linkedin.com/in/ACoAAALSnS8B68IihsEgKrBROhiwA86KXX8OIwA","country":"senegal","company":"Yas senegal","website":"yas.sn","company_linkedin":"linkedin.com/company/yas-senegal"},
+      {"row_num":10,"name":"Christopher Kwesi Williams","job":"Manager, inventory & asset management","linkedin":"linkedin.com/in/ACoAAAmlDBgBdb92yVUzF1tHN8jgGNaHei_PhPg","country":"ghana","company":"Baker hughes","website":"bakerhughes.com","company_linkedin":"linkedin.com/company/bakerhughes"},
+      {"row_num":11,"name":"Laurence Lannes","job":"Leader health economist in west africa","linkedin":"linkedin.com/in/ACoAAAQLxRsBj4Jgj9jhXFavvMe2MNzZCPTHG58","country":"senegal","company":"The world bank","website":"worldbank.org","company_linkedin":"linkedin.com/company/the-world-bank"},
+      {"row_num":12,"name":"Jena Lee Nardella","job":"Venture partner, africa regional gathering","linkedin":"linkedin.com/in/ACoAAACrZzoBueVPWbaU5LOBMR_6MMZHgWXBrog","country":"ghana","company":"Praxis","website":"praxis.co","company_linkedin":"linkedin.com/company/praxishq"},
+      {"row_num":13,"name":"Nadem Agroh Msc. Mba","job":"Head of treasury","linkedin":"linkedin.com/in/ACoAAAVK8XUBYaUB1cyIfz_t7NDnJXgu30TvhTQ","country":"ghana","company":"Asa international group plc","website":"asa-international.com","company_linkedin":"linkedin.com/company/asa-international-asai-"},
+      {"row_num":14,"name":"Benjamin B.","job":"Chief economist","linkedin":"linkedin.com/in/ACoAAAQ2BOIBANwNn5Y_d6ZelWZBFwytIeDAxgE","country":"ghana","company":"Secondstax","website":"secondstax.com","company_linkedin":"linkedin.com/company/secondstax"},
+      {"row_num":15,"name":"Samuel Ntow Affum","job":"Sales head, commercial and business banking","linkedin":"linkedin.com/in/ACoAAAfFiy4BTVWx9j_6-JZV6sV4ZXWF_Wveqg0","country":"ghana","company":"First national bank gh","website":"firstnationalbank.com.gh","company_linkedin":"linkedin.com/company/first-national-bank-gh"},
+      {"row_num":16,"name":"Emmanuel A Kwarteng","job":"Finance transformation africa","linkedin":"linkedin.com/in/ACoAAAnTO3cB0K14PUBCdo0x4rwjUzbiagyAdU0","country":"ghana","company":"Unilever","website":"unilever.com","company_linkedin":"linkedin.com/company/unilever"},
+      {"row_num":17,"name":"Mercy Anane Akpelimkum","job":"Finance coordinator","linkedin":"linkedin.com/in/ACoAABWFMtoBLX1ZX1VjBm2PYVzXo2FL2_NdUN4","country":"ghana","company":"Ocean network express","website":"one-line.com","company_linkedin":"linkedin.com/company/oceannetworkexpress"},
+      {"row_num":18,"name":"Ernest Anim, Fcca","job":"Manager ,public finance management","linkedin":"linkedin.com/in/ACoAAAcdRIEBPiEHfvySLYY3EhPPIg6MEdM69Do","country":"ghana","company":"Dt global","website":"dt-global.com","company_linkedin":"linkedin.com/company/dt-global"},
+      {"row_num":19,"name":"El Hadj Mamadou Diokhane","job":"Auditor","linkedin":"linkedin.com/in/ACoAACY7sjgBvdtfG3C8zPnqsJSVY9qtYlgLWTY","country":"senegal","company":"Wave mobile money","website":"wave.com","company_linkedin":"linkedin.com/company/wavemm"},
+      {"row_num":20,"name":"Jeff Kusi-mensah, Mba","job":"Director of risk and compliance","linkedin":"linkedin.com/in/ACoAAAUxtwgBM9ekyJ-D-_Obo65bm7wE7QQ0_AQ","country":"ghana","company":"Advantis medical staffing","website":"advantismed.com","company_linkedin":"linkedin.com/company/advantis-medical-staffing-llc"},
+      {"row_num":21,"name":"Jean François Diatta","job":"National finance officer","linkedin":"linkedin.com/in/ACoAAA-RGIwBCqe0FupYFRytPM2iGx7GnssJ-gA","country":"senegal","company":"United nations ocha","website":"unocha.org","company_linkedin":"linkedin.com/company/united-nations-ocha"},
+      {"row_num":22,"name":"Evans Owusu Amankwah","job":"Risk manager","linkedin":"linkedin.com/in/ACoAABZer84B9bhuBw5IJgSRxEP_uOOsdLry2tM","country":"ghana","company":"National lottery authority","website":"nla.com","company_linkedin":"linkedin.com/company/nla"},
+      {"row_num":23,"name":"Christine Nensom Pambo","job":"Head of internal audit","linkedin":"linkedin.com/in/ACoAAAvRLjMBbFDBQxLcStG4fQjbQ-nPku_dedQ","country":"ghana","company":"Kofi annan international peacekeeping training centre kaiptc","website":"kaiptc.org","company_linkedin":"linkedin.com/company/kofi-annan-international-peacekeeping-training-center"},
+      {"row_num":24,"name":"Carlos Johnson","job":"Director of finance","linkedin":"linkedin.com/in/ACoAAASZ7rIBAZKi4-cQ3MvcRWTN-98BzFVZ0zk","country":"ghana","company":"Warc africa","website":"warcgroup.com","company_linkedin":"linkedin.com/company/warc-africa"},
+      {"row_num":25,"name":"Joseph Matey","job":"Credit review and monitoring manager","linkedin":"linkedin.com/in/ACoAABjSBNkBAIUo18_H2tg7ykY-lz8P0IDoW9k","country":"ghana","company":"Access bank ghana plc","website":"accessbankplc.com","company_linkedin":"linkedin.com/company/accessbankghana"},
+      {"row_num":26,"name":"Samuel Dansou","job":"Comptable fiscaliste principal","linkedin":"linkedin.com/in/ACoAADbDUswBsridaW7d5oazLm7V4cyCgvEEckQ","country":"benin","company":"Iridium communications","website":"iridium.com","company_linkedin":"linkedin.com/company/iridium"},
+      {"row_num":27,"name":"Jacob Fosu-kyei","job":"Financial reporting manager","linkedin":"linkedin.com/in/ACoAAAh4ZmgBWURsOfJyyRJnGQcjNJEW4cA1i2I","country":"ghana","company":"Volta river authority","website":"vra.com","company_linkedin":"linkedin.com/company/volta-river-authority"},
+      {"row_num":28,"name":"Fred Kofi Asiedu","job":"Treasury analyst","linkedin":"linkedin.com/in/ACoAAAjIAMcBD6wzl2BSwVFIhJVG_q4ZOsOeiKQ","country":"ghana","company":"Hyster yale materials handling","website":"hyster-yale.com","company_linkedin":"linkedin.com/company/hyster-yale-group"},
+      {"row_num":29,"name":"Kofi Dankwa Cpa, Ca","job":"Audit & assurance manager","linkedin":"linkedin.com/in/ACoAAAyyHm8BifDBbHjTfEvCklEKK9JwW-MkdEw","country":"ghana","company":"Deloitte","website":"deloitte.com","company_linkedin":"linkedin.com/company/deloitte"},
+      {"row_num":30,"name":"Abdou Samb","job":"Insurance agent","linkedin":"linkedin.com/in/ACoAAASnd1cBIyx9mB0HrmnEdySErjTQVd1NtBo","country":"senegal","company":"Family first life","website":"familyfirstlife.com","company_linkedin":"linkedin.com/company/family-first-life"},
+      {"row_num":31,"name":"Jo Addy","job":"Director, strategy & finance","linkedin":"linkedin.com/in/ACoAAAAqyooBure9WLIpgzl_0_wrTtKeFWGE3EE","country":"ghana","company":"Freezelink","website":"freezelink.co","company_linkedin":"linkedin.com/company/freezelink"},
+      {"row_num":32,"name":"Baba Michael","job":"Leader, finance officer","linkedin":"linkedin.com/in/ACoAABVp9jkBsBuOCj6fIn48uoBUPVdcfqv5GY8","country":"ghana","company":"Ghana national petroleum","website":"gnpcghana.com","company_linkedin":"linkedin.com/company/ghana-national-petroleum-corporation"},
+      {"row_num":33,"name":"Naome H.","job":"Grant management specialist","linkedin":"linkedin.com/in/ACoAAB9QGVgBE3G-3GzOcq78D2mGVpYAZI-mxhM","country":"ghana","company":"Mitacs","website":"mitacs.ca","company_linkedin":"linkedin.com/company/mitacs"},
+      {"row_num":34,"name":"Frederick Sefa","job":"Bank teller","linkedin":"linkedin.com/in/ACoAAAu5_Q8Bv03eW2eFgwFftMuDUYZLdpcZzhQ","country":"ghana","company":"Ecobank ghana plc","website":"ecobank.com","company_linkedin":"linkedin.com/company/ecobankghanaplc"},
+      {"row_num":35,"name":"Nana Yaa Boatemaa Arthur","job":"Financial aid representative","linkedin":"linkedin.com/in/ACoAAA3Q9o0BRJrw4KMqeVwikNiMokdMHGyY9yU","country":"ghana","company":"Northern virginia community college","website":"nvcc.edu","company_linkedin":"linkedin.com/school/northern-virginia-community-college"},
+      {"row_num":36,"name":"Frederick Ankomah","job":"Finance and operations manager","linkedin":"linkedin.com/in/ACoAABNUlqcBF0O2sDzLgBH7O1sm_64LZIdn9Iw","country":"ghana","company":"Xcene research","website":"xceneresearch.com","company_linkedin":"linkedin.com/company/xcene-research"},
+      {"row_num":37,"name":"Kennedy Ateamene","job":"Principal accounting assistant","linkedin":"linkedin.com/in/ACoAAB5RAgcB1QLb5WHRZN_0dn0kFe9yTdx4IMU","country":"ghana","company":"University of ghana","website":"ug.edu.gh","company_linkedin":"linkedin.com/company/university-of-ghana"},
+      {"row_num":38,"name":"Lamin Jarju","job":"Senior economist","linkedin":"linkedin.com/in/ACoAAAYa3x8BnYsAqrz1sZalv3olnBmzFDnLdJc","country":"ghana","company":"West african monetary institute","website":"wami-imao.org","company_linkedin":"linkedin.com/company/west-african-monetary-institute"},
+      {"row_num":39,"name":"Desmond Quartey","job":"Financial advisor","linkedin":"linkedin.com/in/ACoAABECSZYB1WEPSZUp-pKyWTe6DPwuv_5afDE","country":"ghana","company":"Beige capital","website":"beigecapital.com","company_linkedin":"linkedin.com/company/beige-capital"},
+      {"row_num":40,"name":"Jamie Ivy","job":"Revenue integrity analyst / team leader","linkedin":"linkedin.com/in/ACoAAAid8cEBgGpXXP9NztnOY9vot5kQvlxXKj4","country":"ghana","company":"Hca","website":"taxcentres.co.uk","company_linkedin":"linkedin.com/company/hca_2"},
+      {"row_num":41,"name":"Maty Seye","job":"Administrative and financial assistant","linkedin":"linkedin.com/in/ACoAAChfrsYBmsyIL8MCRuXjxvtpDN2tec2mREI","country":"senegal","company":"Transpaps sa","website":"transpaps.com","company_linkedin":"linkedin.com/company/transpaps-sa"},
+      {"row_num":42,"name":"Maxwell Amuzu","job":"Accountant","linkedin":"linkedin.com/in/ACoAABRQv2wBFY8QbZ_o5TysWKKM_WZ3gvcqtz4","country":"ghana","company":"Emerging public leaders","website":"emergingpublicleaders.org","company_linkedin":"linkedin.com/company/emerging-public-leaders"},
+      {"row_num":43,"name":"Dyllis Quansah, Acca","job":"Finance manager","linkedin":"linkedin.com/in/ACoAABY6K-wB85ZTulcddrGDLFhsVAujEb1LDCg","country":"ghana","company":"Yemaachi biotech","website":"yemaachi.com","company_linkedin":"linkedin.com/company/yemaachi"},
+      {"row_num":44,"name":"Charles Boatin","job":"Investment professional","linkedin":"linkedin.com/in/ACoAAABXXUIBvKtax__2hDKmcVAS6BbcyC_J0E4","country":"ghana","company":"Adenia partners","website":"adenia.com","company_linkedin":"linkedin.com/company/adenia-partners"},
+      {"row_num":45,"name":"Adjei Lawrence Humphrey","job":"Accounts officer","linkedin":"linkedin.com/in/ACoAABKKJoABvlwCtqCjCF62pDZSgAJvgVx1NSk","country":"ghana","company":"Ipmc ghana","website":"ipmcghana.com","company_linkedin":"linkedin.com/company/ipmc-ghana"},
+      {"row_num":46,"name":"Matar Diakhate","job":"Responsable comptable","linkedin":"linkedin.com/in/ACoAABUZU5gBExgqZsSP7ukJy_3UWp-ErFXuiQY","country":"senegal","company":"International drilling idc","website":"idc-drilling.com","company_linkedin":"linkedin.com/company/international-drilling-company-idc-"},
+      {"row_num":47,"name":"Theophilus Masopeh","job":"Accountant","linkedin":"linkedin.com/in/theophilus-masopeh-68aa8088","country":"ghana","company":"Plan international","website":"plan-international.org","company_linkedin":"linkedin.com/company/plan-international"},
+      {"row_num":48,"name":"Belinda Agyemang","job":"Credit relationship officer","linkedin":"linkedin.com/in/ACoAACGVbGQBSrYeBgqAO0BREIZzy6p98brh1eM","country":"ghana","company":"Advans ghana savings and loans","website":"advansghana.com","company_linkedin":"linkedin.com/company/advans-ghana-saving-&-loans-company"},
+      {"row_num":49,"name":"Phillip Kone","job":"Auditing manager","linkedin":"linkedin.com/in/phillip-kone-b817b270","country":"togo","company":"African development bank group","website":"afdb.org","company_linkedin":"linkedin.com/company/african-development-bank"},
+      {"row_num":50,"name":"Samuel Yartey","job":"Bank teller","linkedin":"linkedin.com/in/ACoAAB0OgXsBYLdyBWLoPlrcHck_lmk98YvhCvg","country":"ghana","company":"Ecobank ghana plc","website":"ecobank.com","company_linkedin":"linkedin.com/company/ecobankghanaplc"}
+    ];
+
+    function ensureHttps(url) {
+      if (!url) return '#';
+      const u = url.trim();
+      return (u.startsWith('http://') || u.startsWith('https://')) ? u : 'https://' + u;
+    }
+
+    function capitalize(s) {
+      return s ? s.charAt(0).toUpperCase() + s.slice(1).toLowerCase() : '';
+    }
+
+    function buildStats() {
+      const byCountry = {};
+      PROSPECTS.forEach(p => {
+        const c = p.country;
+        byCountry[c] = (byCountry[c] || 0) + 1;
+      });
+      const total = PROSPECTS.length;
+      const statsEl = document.getElementById('stats');
+      statsEl.innerHTML = [
+        `<div class="stat"><strong>${total}</strong><span>prospects</span></div>`,
+        ...Object.entries(byCountry)
+          .sort((a, b) => b[1] - a[1])
+          .map(([country, n]) => `<div class="stat"><strong>${n}</strong><span>${capitalize(country)}</span></div>`)
+      ].join('');
+
+      const select = document.getElementById('filterCountry');
+      const opts = select.querySelectorAll('option:not([value=""])');
+      opts.forEach(o => o.remove());
+      Object.keys(byCountry)
+        .sort()
+        .forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = `${capitalize(c)} (${byCountry[c]})`;
+          select.appendChild(opt);
+        });
+    }
+
+    let sortKey = 'name';
+    let sortDir = 1;
+
+    function getFiltered() {
+      const q = (document.getElementById('search').value || '').trim().toLowerCase();
+      const country = (document.getElementById('filterCountry').value || '').trim().toLowerCase();
+      return PROSPECTS.filter(p => {
+        const matchCountry = !country || p.country.toLowerCase() === country;
+        const matchSearch = !q || [p.name, p.job, p.company, p.country].some(
+          f => String(f).toLowerCase().includes(q)
+        );
+        return matchCountry && matchSearch;
+      });
+    }
+
+    function getSorted(list) {
+      return [...list].sort((a, b) => {
+        let va = a[sortKey];
+        let vb = b[sortKey];
+        if (typeof va === 'string') va = va.toLowerCase();
+        if (typeof vb === 'string') vb = vb.toLowerCase();
+        if (va < vb) return -1 * sortDir;
+        if (va > vb) return 1 * sortDir;
+        return 0;
+      });
+    }
+
+    function render() {
+      const filtered = getFiltered();
+      const sorted = getSorted(filtered);
+      const tbody = document.getElementById('tbody');
+      const countBar = document.getElementById('countBar');
+
+      if (sorted.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Aucun prospect ne correspond à vos filtres.</td></tr>';
+        countBar.textContent = '0 prospect';
+        return;
+      }
+
+      tbody.innerHTML = sorted.map(p => {
+        const li = ensureHttps(p.linkedin);
+        const web = ensureHttps(p.website);
+        const compLi = ensureHttps(p.company_linkedin);
+        return `
+          <tr>
+            <td class="name">${escapeHtml(p.name)}</td>
+            <td class="job">${escapeHtml(p.job)}</td>
+            <td class="country">${escapeHtml(capitalize(p.country))}</td>
+            <td class="company">${escapeHtml(p.company)}</td>
+            <td>
+              <div class="links">
+                <a href="${li}" target="_blank" rel="noopener" class="linkedin">LinkedIn</a>
+                <a href="${web}" target="_blank" rel="noopener" class="website">Site</a>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      countBar.textContent = `${sorted.length} prospect${sorted.length > 1 ? 's' : ''} affiché${sorted.length !== PROSPECTS.length ? ' (filtrés)' : ''}`;
+    }
+
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    document.getElementById('search').addEventListener('input', render);
+    document.getElementById('filterCountry').addEventListener('change', render);
+
+    document.querySelectorAll('th button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-sort');
+        if (sortKey === key) sortDir *= -1;
+        else { sortKey = key; sortDir = 1; }
+        render();
+      });
+    });
+
+    buildStats();
+    render();
+  </script>
+</body>
+</html>
