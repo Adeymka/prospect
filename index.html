@@ -261,6 +261,7 @@
       color: var(--text-muted);
     }
 
+    /* ——— Tablette : table scrollable ——— */
     @media (max-width: 900px) {
       .table-wrap {
         overflow-x: auto;
@@ -268,6 +269,160 @@
 
       table {
         min-width: 700px;
+      }
+    }
+
+    /* ——— Mobile : cartes au lieu du tableau ——— */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem 1rem;
+      }
+
+      header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+        line-height: 1.25;
+      }
+
+      .subtitle {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+
+      .stats {
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .stat {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+      }
+
+      .toolbar {
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .search-wrap {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .search-wrap input {
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        font-size: 1rem; /* évite zoom iOS sur focus */
+      }
+
+      .filter-country {
+        width: 100%;
+        min-width: 0;
+        padding: 0.75rem 1rem;
+      }
+
+      .table-wrap {
+        overflow: visible;
+        border-radius: var(--radius);
+      }
+
+      table,
+      thead,
+      tbody,
+      tr {
+        display: block;
+      }
+
+      thead tr {
+        display: none;
+      }
+
+      tbody tr {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      tbody tr:first-child {
+        border-radius: var(--radius) var(--radius) 0 0;
+      }
+
+      tbody tr:hover td {
+        background: transparent;
+      }
+
+      tbody tr:hover {
+        background: var(--surface-hover);
+      }
+
+      td {
+        display: block;
+        padding: 0.35rem 0 0.5rem;
+        border: none;
+        font-size: 0.9rem;
+      }
+
+      td:first-child {
+        padding-top: 0;
+      }
+
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--text-muted);
+        margin-bottom: 0.2rem;
+      }
+
+      td.links-cell::before {
+        margin-top: 0.5rem;
+      }
+
+      .name {
+        font-size: 1rem;
+        margin-bottom: 0.15rem;
+      }
+
+      .job {
+        max-width: none;
+      }
+
+      .links {
+        margin-top: 0.25rem;
+      }
+
+      .links a {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.85rem;
+        min-height: 44px; /* zone tactile confortable */
+        align-items: center;
+      }
+
+      .count-bar {
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ——— Très petit écran ——— */
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      .stat {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+      }
+
+      tbody tr {
+        padding: 0.85rem;
       }
     }
   </style>
@@ -443,11 +598,11 @@
         const compLi = ensureHttps(p.company_linkedin);
         return `
           <tr>
-            <td class="name">${escapeHtml(p.name)}</td>
-            <td class="job">${escapeHtml(p.job)}</td>
-            <td class="country">${escapeHtml(capitalize(p.country))}</td>
-            <td class="company">${escapeHtml(p.company)}</td>
-            <td>
+            <td class="name" data-label="Nom">${escapeHtml(p.name)}</td>
+            <td class="job" data-label="Poste">${escapeHtml(p.job)}</td>
+            <td class="country" data-label="Pays">${escapeHtml(capitalize(p.country))}</td>
+            <td class="company" data-label="Entreprise">${escapeHtml(p.company)}</td>
+            <td class="links-cell" data-label="Liens">
               <div class="links">
                 <a href="${li}" target="_blank" rel="noopener" class="linkedin">LinkedIn</a>
                 <a href="${web}" target="_blank" rel="noopener" class="website">Site</a>
